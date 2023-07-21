@@ -16,10 +16,11 @@ WHERE OP.City = 'Redmond'
 -- Write an SQL statement to show the LastName, FirstName, CellPhone, and total hours worked for each
 -- employee who has worked on at least one property and sort the result by the total hours worked in the
 -- ascending order. Give an appropriate column name to the computed results.
-SELECT E.EmployeeID, E.LastName, E.FirstName, E.CellPhone, SUM(PS.HoursWorked)
+SELECT E.EmployeeID, E.LastName, E.FirstName, E.CellPhone, SUM(PS.HoursWorked) AS HoursWorked
 FROM EMPLOYEE E
 JOIN PROPERTY_SERVICE PS ON E.EmployeeID = PS.EmployeeID
 GROUP BY E.EmployeeID, E.LastName, E.FirstName, E.CellPhone
+ORDER BY SUM(PS.HoursWorked)
 
 
 -- A.c
@@ -28,6 +29,7 @@ GROUP BY E.EmployeeID, E.LastName, E.FirstName, E.CellPhone
 -- EmployeeID, so you need to delete the related rows in the PROPERTY_SERVICE table first. Use
 -- BEGIN TRAN and ROLLBACK properly.
 BEGIN TRAN;
+DELETE FROM 
 DELETE FROM EMPLOYEE
 WHERE CellPhone = '206-254-1234'
 ROLLBACK;
